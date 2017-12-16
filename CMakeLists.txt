@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.8)
-project(PersonalDiary)
+CMAKE_MINIMUM_REQUIRED(VERSION 3.6)
+PROJECT(PersonalDiary)
 
-set(CMAKE_CXX_STANDARD 11)
+SET(CMAKE_EXPORT_COMPILE_COMMANDS on)
+SET(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES main.cpp)
-add_executable(pdiary ${SOURCE_FILES})
+ADD_SUBDIRECTORY(src)

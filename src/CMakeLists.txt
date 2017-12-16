@@ -1,0 +1,3 @@
+SET(SOURCE_FILES main.cpp)
+
+ADD_EXECUTABLE(pdiary ${SOURCE_FILES})
