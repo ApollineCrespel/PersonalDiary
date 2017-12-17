@@ -1,10 +1,21 @@
 #include <iostream>
 #include <string>
+#include "client.h"
+
 
 int main() {
-    std::string s;
-    std::cout << "Hello, World!" << std::endl;
-    std::cin >> s;
-    std::cout << "your string is: " << s << std::endl;
+    std::string user;
+    std::string password;
+
+    std::cout << "Welcome in your personal diary management platform" << std::endl;
+    std::cout << "Please specify your creditentials" << std::endl;
+    std::cout << "User: ";
+    std::cin >> user;
+    std::cout << "Password: ";
+    std::cin >> password;
+
+    Client client(user, password);
+    
+
     return 0;
 }
