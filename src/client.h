@@ -3,7 +3,9 @@
 
 #include <string>
 
-
+/*
+ * Cette classe permet d'avoir une interaction entre utilisateur et BDD.
+ */
 class Client {
 public:
     Client(std::string &user, std::string &password);
