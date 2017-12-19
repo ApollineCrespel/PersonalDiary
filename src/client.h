@@ -6,10 +6,13 @@
 /*
  * Cette classe permet d'avoir une interaction entre utilisateur et BDD.
  */
+
 class Client {
 public:
     Client(std::string &user, std::string &password);
     ~Client();
+
+    void changepassword();
 
 private:
     static std::string db;
