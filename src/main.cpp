@@ -13,7 +13,7 @@ int main() {
     std::string password;
     char choice;
 
-    Record record;
+    Journal record;
 
     std::cout << "Welcome in your personal diary management platform" << std::endl;
     std::cout << "Please specify your creditentials" << std::endl;
@@ -25,10 +25,10 @@ int main() {
     Client client(user, password);
 
     std::cout << "Welcome in the main menu " << std::endl;
-    std::cout << "1. View Record" << std::endl;
-    std::cout << "2. Add Record" << std::endl;
-    std::cout << "3. Edit Record" << std::endl;
-    std::cout << "4. Delete Record" << std::endl;
+    std::cout << "1. View Journal" << std::endl;
+    std::cout << "2. Add Journal" << std::endl;
+    std::cout << "3. Edit Journal" << std::endl;
+    std::cout << "4. Delete Journal" << std::endl;
     std::cout << "5. Change Password" << std::endl;
     std::cout << "6. Exit" << std::endl;
 

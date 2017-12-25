@@ -3,11 +3,15 @@
 
 #include <string>
 
-class Record {
+class Journal {
 
 public: // on met toutes les methodes de la classe
-    Record();
-    ~Record();
+    Journal();
+
+
+
+    void lock();
+    void unlock(std::string user, std::string password);
 
     void viewrecord();
     void addrecord();
@@ -15,11 +19,12 @@ public: // on met toutes les methodes de la classe
     void deleterecord();
 
 private: // on met tout les attributs de la classe
-    std::string *date;
-    std::string *time;
-    std::string *who;
-    std::string *place;
-    std::string *note;
+    std::string date; // mettre le vrai format date natif de Cpp
+
+    std::string time;
+    std::string who;
+    std::string place;
+    std::string note;
 
 
 };

@@ -4,18 +4,14 @@
 using namespace std;
 
 
-Record::Record(){
-    date=nullptr;
-    time=nullptr;
-    who= nullptr;
-    place= nullptr;
-    note= nullptr;
+Journal::Journal(){
+
 
 }
 
 
-void Record::addrecord() {
-    Record record;
+void Journal::addrecord() {
+    Journal record;
     std::string date;
     std::string time;
     std::string who;
