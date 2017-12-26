@@ -1,30 +1,26 @@
 #ifndef PERSONALDIARY_RECORD_H
 #define PERSONALDIARY_RECORD_H
-
 #include <string>
+#include <ctime>
+#include "client.h"
 
-class Journal {
+class Record {
+public:
+    Record(struct tm date0, std::string who0, std::string place0, std::string note0, Client *author0);
+    void setdate(struct tm date);
+    void setwho(std::string who);
+    void setplace(std::string place);
+    void setnote(std::string note);
 
-public: // on met toutes les methodes de la classe
-    Journal();
 
-
-
-    void lock();
-    void unlock(std::string user, std::string password);
-
-    void viewrecord();
-    void addrecord();
-    void editrecord();
-    void deleterecord();
-
-private: // on met tout les attributs de la classe
-    std::string date; // mettre le vrai format date natif de Cpp
-
-    std::string time;
+private:
+    struct tm date;
     std::string who;
     std::string place;
+    Client *author_ptr;
     std::string note;
+    struct tm lastedit;
+
 
 
 };

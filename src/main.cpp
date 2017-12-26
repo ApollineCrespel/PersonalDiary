@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "client.h"
-#include "record.h"
+#include "journal.h"
 #include <fstream>
 
 using namespace std;

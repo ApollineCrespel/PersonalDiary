@@ -10,12 +10,15 @@
 class Client {
 public:
     Client(std::string &user, std::string &password);
-    ~Client();
-
-    void changepassword();
+    void login(std::string user, std::string password);
+    void logout();
+    void changepassword(std::string user, std::string password);
 
 private:
-    static std::string db;
+    std::string user;
+    std::string password;
+    bool logged;
+
 };
 
 
