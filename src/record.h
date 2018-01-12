@@ -6,12 +6,16 @@
 
 class Record {
 public:
-    Record(struct tm date0, std::string who0, std::string place0, std::string note0, Client *author0);
-    void setdate(struct tm date);
-    void setwho(std::string who);
-    void setplace(std::string place);
-    void setnote(std::string note);
+    Record(struct tm date0, std::string who0, std::string place0, std::string note0);
+    void setdate(struct tm d);
+    void setwho(std::string w);
+    void setplace(std::string p);
+    void setnote(std::string n);
+    struct tm getdate();
+    void setLastEdit(struct tm lastedit0);
+    void print();
 
+    void save(); //fonction qui créer le fichier texte
 
 private:
     struct tm date;
@@ -20,8 +24,6 @@ private:
     Client *author_ptr;
     std::string note;
     struct tm lastedit;
-
-
 
 };
 

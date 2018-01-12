@@ -9,10 +9,11 @@
 
 class Client {
 public:
-    Client(std::string &user, std::string &password);
-    void login(std::string user, std::string password);
+    Client(std::string user0, std::string password0);
+    void login();
     void logout();
-    void changepassword(std::string user, std::string password);
+    //void changepassword(std::string user0, std::string password0);
+    bool islogged();
 
 private:
     std::string user;

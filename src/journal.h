@@ -1,5 +1,5 @@
-#ifndef PERSONALDIARY_RECORD_H
-#define PERSONALDIARY_RECORD_H
+#ifndef JOURNAL_H
+#define JOURNAL_H
 
 #include <string>
 #include <vector>
@@ -8,25 +8,24 @@
 
 class Journal {
 
-public: // on met toutes les methodes de la classe
-    Journal();
-    void open(Client);
+public:
+    Journal(std::string title0);
+    void open(Client *c);
     void addrecord();
     void viewrecord(int index);
     void editrecord(int index);
     void deleterecord(int index);
-    void printrecords();
+    void printrecords(int option);
     void close();
+    void settitle(std::string t);
 
+private:
 
-
-private: // on met tout les attributs de la classe
-
-    std::vector<Record> list;
+    //std::vector<Record> list;
     std::string title;
     Client *currentclient;
 
 };
 
 
-#endif //PERSONALDIARY_RECORD_H
+#endif //JOURNAL_H
