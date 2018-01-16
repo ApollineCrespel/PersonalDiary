@@ -15,6 +15,8 @@ public:
     void setLastEdit(struct tm lastedit0);
     void print();
 
+    void editrecord();
+
     void save(); //fonction qui créer le fichier texte
 
 private:

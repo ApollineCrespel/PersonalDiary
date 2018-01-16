@@ -86,23 +86,3 @@ int main() {
     return 0;
 }
 
- /*
-
-int main(){
-    cout<<"You are about to log"<<endl;
-
-    std::string user;
-    std::string password;
-    char choice;
-
-    cout << "User: ";
-    cin >> user;
-    cout << "Password: ";
-    cin >> password;
-
-    Client client(user, password);
-
-    client.login();
-}
-
-*/

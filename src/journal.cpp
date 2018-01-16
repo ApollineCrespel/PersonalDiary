@@ -3,7 +3,7 @@
 #include "client.h"
 #include"record.h"
 #include <ctime>
-
+#include <stdio.h>
 #include <fstream>
 #include <regex>
 #include <string>
@@ -39,18 +39,18 @@ void Journal::addrecord() {
 
     std::string date_str;
     cout << "You are creating a new record" << endl;
-    cout << "Enter the date of the record [jj_mm_aaaa]" << endl;
+    cout << "Enter the date of the record [jj-mm-aaaa]" << endl;
     cin >> date_str;
 
-    while(!regex_match(date_str, regex("\\d{2}_\\d{2}_\\d{4}"))){
+    while(!regex_match(date_str, regex("\\d{2}-\\d{2}-\\d{4}"))){
         cout<<"ERROR. Date is not in the right format"<<endl;
-        cout<<"Enter the new date [jj_mm_aaaa]"<<endl;
+        cout<<"Enter the new date [jj-mm-aaaa]"<<endl;
         cin>> date_str;
     }
 
 
     struct tm d;
-    strptime(date_str.c_str(), "%d_%m_%Y",&d);
+    strptime(date_str.c_str(), "%d-%m-%Y",&d);
     std::string w;
     std::string p;
     std::string n;
@@ -68,18 +68,9 @@ void Journal::addrecord() {
     lastedit0 = *localtime(&temps);
     newRecord.setLastEdit(lastedit0);
 
-    list.push_back(newRecord);
+    ofstream List("/Users/apolline/Documents/PersonalDiary/src/List.txt",ios::app);
+    List<<date_str<<endl;
     newRecord.save();
-
-
-}
-
-
-
-void Journal::viewrecord(int index) {
-
-    Record toView = list[index];
-    toView.print();
 
 
 }
@@ -110,127 +101,96 @@ void Journal::printrecords(int option) {
             cout<<"You have not saved any record yet."<<endl;
         }
 
+
         else {
-            for (unsigned int i=0; i<=allLines.size(); i++){
-                printf("Record n° %d dated: %s", i, allLines[i]);
+            for (unsigned int i=0; i<allLines.size(); i++){
+                printf("Record n° %d dated: %s \n", i, allLines[i].c_str());
             }
 
             cout<< "Enter the number of the record you want to use"<<endl;
             cin>>index;
 
+            struct tm d;
             std::string date_str = allLines[index];
 
-            ifstream r("/Users/apolline/Documents/PersonalDiary/src/Fichiers" + date_str);
+            ifstream r("/Users/apolline/Documents/PersonalDiary/src/Fichiers/" + date_str + ".txt");
 
-/*
+            strptime(date_str.c_str(), "%d-%m-%Y",&d);
+
+            std::string element;
+            std::vector<string> full;
+
+            while(!r.eof()){
+                getline(r, element);
+                full.push_back(element);
+            }
+
+            std::size_t sep = full[0].find(':');
+            std::string w = full[0].substr(sep+1,full[0].size());
+
+            sep = full[1].find(':');
+            std::string p = full[1].substr(sep+1,full[1].size());
+
+            std::string n;
+            for (unsigned int i=2; i<full.size()-1; i++){
+                n+=full[i];
+            }
+
+            Record toPrint(d,w,p,n);
+
             if (0<=index<=allLines.size()){
+
                 switch(option){
                     case 1:
-                        j.viewrecord(index);
+                        toPrint.print();
+                        break;
 
                     case 2:
-                        j.editrecord(index);
+                        toPrint.editrecord();
+                        break;
 
                     case 3:
                         j.deleterecord(index);
-                    }
+                        break;
+
+                    default:
+                        std::cout<<"ERROR"<<std::endl;
                 }
+            }
 
             else {
                 cout<<"ERROR. You entered an invalid number"<<endl;
                 }
 
         }
-  */  }
+    }
 }
 
 
-
-/*
-    for (unsigned int i=0; i<=list.size(); i++){
-
-        char* date_str;
-        struct tm date_tm=list[i].getdate();
-        strftime(date_str, 12, "%d_%m_%Y", &date_tm);
-        printf ("Record n° %d dated: %s", i, date_str);
-
-    }
-*/
-
-
-
-
-
-
-
-
-void Journal::editrecord(int index) {
-    struct tm lastedit0;
-    time_t temps;
-
-    char choice;
-    Record toEdit = list[index];
-    cout<<"Your record was:"<<endl;
-    toEdit.print();
-
-    struct tm d;
-    std::string w, p, n, date_str;
-
-    cout<<"Change date ? (Y/N)"<<endl;
-    cin>>choice;
-
-    if (choice == 'Y'|| choice=='y'){
-        cout<<"Enter the new date [jj_mm_aaaa]"<<endl;
-        cin >> date_str;
-        while(!regex_match(date_str, regex("\\d{2}_\\d{2}_\\d{4}"))){
-            cout<<"ERROR. Date is not in the right format"<<endl;
-            cout<<"Enter the new date [jj_mm_aaaa]"<<endl;
-            cin>> date_str;
-    }
-        strptime(date_str.c_str(), "%d_%m_%Y",&d);
-        toEdit.setdate(d);
-    }
-
-    cout<<"Change person met ? (Y/N)"<<endl;
-    cin>>choice;
-
-    if (choice == 'Y' || choice=='y'){
-        cout<<"Enter the new name"<<endl;
-        cin>>w;
-        toEdit.setwho(w);
-    }
-
-    cout<<"Change place ? (Y/N)"<<endl;
-    cin>>choice;
-
-    if (choice == 'Y' || choice=='y'){
-        cout<<"Enter the new place"<<endl;
-        cin>>p;
-        toEdit.setplace(p);
-    }
-
-    cout<<"New note ? (Y/N)"<<endl;
-    cin>>choice;
-
-    if (choice == 'Y' || choice=='y'){
-        cout<<"Enter the new note"<<endl;
-        cin>>n;
-        toEdit.setnote(n);
-    }
-
-    cout<<"Your record has been modified. The new record is:"<<endl;
-
-    time(&temps);
-    lastedit0 = *localtime(&temps);
-    toEdit.setLastEdit(lastedit0);
-
-    toEdit.save();
-    toEdit.print();
-}
 
 
 void Journal::deleterecord(int index) {
-    list.erase(list.begin() + index);
+    fstream list ("/Users/apolline/Documents/PersonalDiary/src/List.txt");
+    std::string line;
+    std::vector<string> allLines;
+    while(!list.eof()){
+        getline(list,line);
+        allLines.push_back(line);
+    }
+
+    std::string date_str = allLines[index];
+    std::string nomfichier= "/Users/apolline/Documents/PersonalDiary/src/Fichiers/" + date_str + ".txt";
+    const char* f=nomfichier.c_str();
+    std::remove(f);
+
+    list.close();
+    ofstream List("/Users/apolline/Documents/PersonalDiary/src/List.txt",ios::out|ios::trunc);
+
+    for (unsigned int i=0; i<=allLines.size(); i++){
+        if (i!=index){
+            List<<allLines[i]<<endl;
+        }
+    }
 }
 
 

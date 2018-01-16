@@ -12,8 +12,8 @@ public:
     Journal(std::string title0);
     void open(Client *c);
     void addrecord();
-    void viewrecord(int index);
-    void editrecord(int index);
+
+
     void deleterecord(int index);
     void printrecords(int option);
     void close();
