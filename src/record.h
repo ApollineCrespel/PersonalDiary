@@ -17,13 +17,12 @@ public:
 
     void editrecord();
 
-    void save(); //fonction qui créer le fichier texte
+    void save();
 
 private:
     struct tm date;
     std::string who;
     std::string place;
-    Client *author_ptr;
     std::string note;
     struct tm lastedit;
 

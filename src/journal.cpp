@@ -45,7 +45,7 @@ void Journal::addrecord() {
     while(!regex_match(date_str, regex("\\d{2}-\\d{2}-\\d{4}"))){
         cout<<"ERROR. Date is not in the right format"<<endl;
         cout<<"Enter the new date [jj-mm-aaaa]"<<endl;
-        cin>> date_str;
+        cin>>date_str;
     }
 
 
@@ -55,13 +55,15 @@ void Journal::addrecord() {
     std::string p;
     std::string n;
 
-
+    cin.ignore();
     cout<<"Enter the meeting organizer name"<<endl;
-    cin>>w;
+    getline(cin,w);
+
     cout<<"Enter the place"<<endl;
-    cin>>p;
+    getline(cin,p);
+
     cout<<"Enter the note"<<endl;
-    cin>>n;
+    getline(cin,n);
 
     Record newRecord(d,w,p,n);
     time(&temps);
@@ -103,7 +105,7 @@ void Journal::printrecords(int option) {
 
 
         else {
-            for (unsigned int i=0; i<allLines.size(); i++){
+            for (unsigned int i=0; i<=allLines.size()-1; i++){
                 printf("Record n° %d dated: %s \n", i, allLines[i].c_str());
             }
 
@@ -125,16 +127,17 @@ void Journal::printrecords(int option) {
                 full.push_back(element);
             }
 
-            std::size_t sep = full[0].find(':');
-            std::string w = full[0].substr(sep+1,full[0].size());
+            std::size_t sep = full[2].find(':');
+            std::string w = full[2].substr(sep+1,full[2].size());
 
-            sep = full[1].find(':');
-            std::string p = full[1].substr(sep+1,full[1].size());
+            sep = full[3].find(':');
+            std::string p = full[3].substr(sep+1,full[3].size());
 
             std::string n;
-            for (unsigned int i=2; i<full.size()-1; i++){
+            for (unsigned int i=4; i<full.size()-1; i++){
                 n+=full[i];
             }
+
 
             Record toPrint(d,w,p,n);
 
@@ -191,6 +194,7 @@ void Journal::deleterecord(int index) {
             List<<allLines[i]<<endl;
         }
     }
+    cout<<"Your record have been successfully deleted"<<endl;
 }
 
 

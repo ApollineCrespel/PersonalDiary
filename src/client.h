@@ -12,7 +12,7 @@ public:
     Client(std::string user0, std::string password0);
     void login();
     void logout();
-    //void changepassword(std::string user0, std::string password0);
+    void changepassword();
     bool islogged();
 
 private:

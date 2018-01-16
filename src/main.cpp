@@ -1,7 +1,7 @@
 #include <iostream>
-#include <string>
+#include <string.h>
 #include <fstream>
-
+//#include <ncurses.h>
 #include "client.h"
 #include "record.h"
 #include "journal.h"
@@ -13,6 +13,7 @@ using namespace std;
 
 
 int main() {
+    char another;
     std::string user;
     std::string password;
     int choice;
@@ -24,12 +25,16 @@ int main() {
     std::cout << "User: ";
     std::cin >> user;
     std::cout << "Password: ";
-    std::cin >> password;
+
+    //initscr();
+    //noecho();
+    std::cin>>password;
+    //echo();
 
     Client client(user, password);
     client.login();
 
-
+    do{
     if (client.islogged()){
 
         Journal J("AllRecord");
@@ -65,7 +70,7 @@ int main() {
                 break;
 
             case 5:
-                //client.changepassword();
+                client.changepassword();
                 break;
 
             case 6:
@@ -77,12 +82,15 @@ int main() {
 
 
         }
+        cout<<"Do you want to return to the main menu ? (Y/N)"<<endl;
+        cin>>another;
     }
 
     else {
         cout<< "ERROR. You are not logged in" << endl;
     }
-
+    } while (another == 'Y' || another =='y');
     return 0;
+
 }
 
