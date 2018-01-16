@@ -1,0 +1,7 @@
+Apolline:Stylo
+Benjamin:Informatique
+Octave:Cafe
+Julien:Bonnet
+Pierre:Techno
+:
+Apolline:Stylo
